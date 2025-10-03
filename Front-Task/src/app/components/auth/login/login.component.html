@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Login</h2>
+          
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="userName" class="form-label">
+               Username
+              </label>
+              <input type="text" class="form-control" id="username" formControlName="userName" placeholder="Enter your username">
+              <div *ngIf="getFieldError('userName')" class="invalid-feedback d-block">
+                {{ getFieldError('userName') }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group auth-pass-inputgroup">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+                <button class="btn btn-light shadow-none ms-0" type="button" id="password-addon" (click)="togglePasswordVisibility()">
+                  <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                </button>
+              </div>
+              <div *ngIf="getFieldError('password')" class="invalid-feedback d-block">
+                {{ getFieldError('password') }}
+              </div>
+            </div>
+
+            <!-- Attempts Counter -->
+            <!-- <div class="alert alert-warning" *ngIf="attempts > 0 && attempts < maxAttempts">
+              <i class="bi bi-exclamation-triangle me-2"></i>
+              Failed attempts: {{ attempts }}/{{ maxAttempts }}
+            </div> -->
+
+            <!-- Lockout Message -->
+            <div class="alert alert-danger" *ngIf="isLocked">
+              <i class="bi bi-lock me-2"></i>
+              Account locked for 15 minutes due to too many failed attempts.
+            </div>
+
+            <!-- General Error Message -->
+            <div class="alert alert-danger" *ngIf="errorMessage && !isLocked">
+              <i class="bi bi-exclamation-circle me-2"></i>
+              {{ errorMessage }}
+            </div>
+
+            <!-- Consolidated Login Button -->
+            <div class="mt-4 d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary waves-effect waves-light"
+                [disabled]="loginForm.invalid || isLoading || isLocked"
+              >
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                {{ isLoading ? 'Logging in...' : (isLocked ? 'Account Locked' : 'Login') }}
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <p class="mb-0">Don't have an account?
+              <a routerLink="/register" class="text-primary fw-medium">Register here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+﻿global using Microsoft.EntityFrameworkCore.Storage;
+global using eCommerce.Infrastructure.Data;
+global using FitPro.Application.Common;
+global using Microsoft.EntityFrameworkCore;
+global using eCommerce.Domain.Models;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using eCommerce.Application.Interfaces.IRepository;
+global using eCommerce.Infrastructure.Repositories;
+global using eCommerce.Domain.Models.Identity;

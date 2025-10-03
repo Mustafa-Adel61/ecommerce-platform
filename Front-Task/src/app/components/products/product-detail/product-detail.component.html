@@ -1,0 +1,115 @@
+<div class="container mt-4" *ngIf="!isLoading && !errorMessage && product">
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
+        <i class="bi bi-arrow-left me-2"></i>Back to Products
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Product Image -->
+    <div class="col-lg-6">
+      <div class="product-image-container">
+        <img 
+          [src]="getFullImageUrl(product.imagePath ?? null)" 
+          [alt]="product.name"
+          class="img-fluid product-image"
+          (error)="$event.target.src='assets/images/placeholder.svg'"
+        >
+        <div class="discount-badge" *ngIf="product.discountRate > 0">
+          -{{ product.discountRate }}%
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="col-lg-6">
+      <div class="product-info">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-category text-muted">{{ product.categoryName }}</p>
+        
+        <div class="product-code mb-3">
+          <strong>Product Code:</strong> {{ product.code }}
+        </div>
+
+        <div class="price-section mb-4">
+          <div class="d-flex align-items-center flex-wrap">
+            <span class="current-price me-3" *ngIf="product.discountRate > 0">
+              ${{ calculateDiscountedPrice(product.price, product.discountRate).toFixed(2) }}
+            </span>
+            <span class="original-price" [class.text-decoration-line-through]="product.discountRate > 0">
+              ${{ product.price.toFixed(2) }}
+            </span>
+          </div>
+          <div class="savings" *ngIf="product.discountRate > 0">
+            <small class="text-success">
+              You save ${{ (product.price - calculateDiscountedPrice(product.price, product.discountRate)).toFixed(2) }}
+            </small>
+          </div>
+        </div>
+
+        <div class="product-details mb-4">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="detail-item">
+                <strong>Minimum Quantity:</strong>
+                <span class="ms-2">{{ product.minimumQuantity }}</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="detail-item">
+                <strong>Discount Rate:</strong>
+                <span class="ms-2">{{ product.discountRate }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button 
+            type="button" 
+            class="btn btn-primary btn-lg me-3"
+            [routerLink]="['/products', product.id, 'edit']"
+          >
+            <i class="bi bi-pencil me-2"></i>Edit Product
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-outline-danger btn-lg"
+            (click)="deleteProduct()"
+          >
+            <i class="bi bi-trash me-2"></i>Delete Product
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<div class="container mt-5" *ngIf="isLoading">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading product details...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Error Message -->
+<div class="container mt-5" *ngIf="errorMessage">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="alert alert-danger text-center">
+        <h4>Oops!</h4>
+        <p>{{ errorMessage }}</p>
+        <button type="button" class="btn btn-primary" (click)="goBack()">
+          Back to Products
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

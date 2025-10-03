@@ -1,0 +1,21 @@
+<div class="account-container mt-5">
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Loading...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="user" class="card profile-card shadow-lg">
+    <div class="card-body text-center">
+      <div class="profile-icon mb-3">
+        <i class="bi bi-person-circle"></i>
+      </div>
+      <h4 class="card-title mb-3">{{ user.userName }}</h4>
+      <p class="text-muted mb-1"><strong>ID:</strong> {{ user.id }}</p>
+      <p class="text-muted mb-1"><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+  </div>
+</div>

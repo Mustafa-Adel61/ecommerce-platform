@@ -1,0 +1,229 @@
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card-title {
+  color: #333;
+  font-weight: 600;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+.input-group .btn {
+  border-left: none;
+}
+
+.input-group .form-control:focus + .btn {
+  border-color: #0d6efd;
+}
+
+.progress {
+  height: 5px;
+  border-radius: 3px;
+}
+
+.progress-bar {
+  transition: width 0.3s ease;
+}
+
+.password-strength-indicator {
+  margin-top: 0.5rem;
+}
+
+.password-requirements {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+
+.password-requirements ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.password-requirements li {
+  margin-bottom: 0.25rem;
+}
+
+.password-requirements .valid {
+  color: #28a745;
+}
+
+.password-requirements .invalid {
+  color: #dc3545;
+}
+
+/* Enhanced Input Group Styling */
+.input-group-text {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.input-group:focus-within .input-group-text {
+  background-color: #e3f2fd;
+  border-color: #0d6efd;
+  color: #0d6efd;
+}
+
+/* Password Toggle Button */
+.password-toggle-btn {
+  transition: all 0.3s ease;
+  border-left: none !important;
+}
+
+.password-toggle-btn:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.password-toggle-btn.active {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+
+.password-toggle-btn.active:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.password-icon {
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+/* Enhanced Password Strength Indicator */
+.password-strength-container {
+  margin-top: 0.5rem;
+}
+
+.strength-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.strength-progress {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e9ecef;
+  overflow: hidden;
+}
+
+.strength-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.strength-bar.weak {
+  background: linear-gradient(90deg, #dc3545, #fd7e14);
+}
+
+.strength-bar.fair {
+  background: linear-gradient(90deg, #fd7e14, #ffc107);
+}
+
+.strength-bar.good {
+  background: linear-gradient(90deg, #ffc107, #20c997);
+}
+
+.strength-bar.strong {
+  background: linear-gradient(90deg, #20c997, #198754);
+}
+
+.strength-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.strength-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  min-width: 80px;
+}
+
+/* Validation Animations */
+.animated-fade-in {
+  animation: fadeInSlide 0.3s ease-in-out;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Success Check Animation */
+.input-group-text .bi-check-circle-fill {
+  animation: checkBounce 0.5s ease-in-out;
+}
+
+@keyframes checkBounce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Form Control Focus Effects */
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  border-color: #0d6efd;
+}
+
+.form-control.is-valid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+  border-color: #198754;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  border-color: #dc3545;
+}

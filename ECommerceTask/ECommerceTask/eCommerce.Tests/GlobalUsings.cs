@@ -1,0 +1,12 @@
+﻿global using eCommerce.Application.DTOs.Category;
+global using eCommerce.Application.Interfaces.IRepository;
+global using eCommerce.Application.Services;
+global using eCommerce.Domain.Models;
+global using FitPro.Application.Common;
+global using Moq;
+global using eCommerce.Infrastructure.Data;
+global using Microsoft.EntityFrameworkCore;
+global using eCommerce.Infrastructure.Persistence;
+global using eCommerce.Application.DTOs.Product;
+global using eCommerce.Application.Common;
+global using Microsoft.AspNetCore.Http;

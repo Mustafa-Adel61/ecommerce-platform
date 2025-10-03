@@ -1,0 +1,205 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Register</h2>
+          
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="userName" class="form-label">
+                <i class="bi bi-person-circle me-2"></i>Username
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userName"
+                  formControlName="userName"
+                  [class.is-invalid]="userName?.invalid && userName?.dirty"
+                  [class.is-valid]="userName?.valid && userName?.dirty"
+                  placeholder="Enter your username (letters and numbers only)"
+                  autocomplete="username"
+                >
+                <span class="input-group-text" *ngIf="userName?.valid && userName?.dirty">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+              <div class="invalid-feedback animated-fade-in" *ngIf="userName?.invalid && userName?.dirty">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ getFieldError('userName') }}
+              </div>
+              <div class="form-text">
+                <i class="bi bi-info-circle me-1"></i>Username must be 3-50 characters, letters and numbers only
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                <i class="bi bi-envelope-fill me-2"></i>Email
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-at"></i>
+                </span>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  formControlName="email"
+                  [class.is-invalid]="email?.invalid && email?.dirty"
+                  [class.is-valid]="email?.valid && email?.dirty"
+                  placeholder="Enter your email address"
+                  autocomplete="email"
+                >
+                <span class="input-group-text" *ngIf="email?.valid && email?.dirty">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+              <div class="invalid-feedback animated-fade-in" *ngIf="email?.invalid && email?.dirty">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ getFieldError('email') }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="bi bi-lock-fill me-2"></i>Password
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-shield-lock"></i>
+                </span>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  [class.is-invalid]="password?.invalid && password?.dirty"
+                  [class.is-valid]="password?.valid && password?.dirty"
+                  placeholder="Enter your password"
+                  autocomplete="new-password"
+                >
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary password-toggle-btn"
+                  (click)="togglePasswordVisibility()"
+                  [class.active]="showPassword"
+                >
+                  <i class="bi password-icon" 
+                     [class.bi-eye]="!showPassword" 
+                     [class.bi-eye-slash]="showPassword"
+                     [class.text-primary]="showPassword"></i>
+                </button>
+                <span class="input-group-text" *ngIf="password?.valid && password?.touched">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+              <div class="invalid-feedback animated-fade-in" *ngIf="password?.invalid && password?.touched">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ getFieldError('password') }}
+              </div>
+              <!-- Enhanced Password Strength Indicator -->
+              <div class="password-strength-container mt-2" *ngIf="password?.value">
+                <div class="strength-bar-container">
+                  <div class="progress strength-progress">
+                    <div 
+                      class="progress-bar strength-bar" 
+                      [class.weak]="getPasswordStrength() === 'Weak'"
+                      [class.fair]="getPasswordStrength() === 'Fair'"
+                      [class.good]="getPasswordStrength() === 'Good'"
+                      [class.strong]="getPasswordStrength() === 'Strong'"
+                      [style.width.%]="password?.value ? (getPasswordStrength() === 'Weak' ? 25 : getPasswordStrength() === 'Fair' ? 50 : getPasswordStrength() === 'Good' ? 75 : 100) : 0"
+                    ></div>
+                  </div>
+                  <div class="strength-label">
+                    <i class="bi" 
+                       [class.bi-exclamation-triangle-fill]="getPasswordStrength() === 'Weak'"
+                       [class.bi-exclamation-circle-fill]="getPasswordStrength() === 'Fair'"
+                       [class.bi-info-circle-fill]="getPasswordStrength() === 'Good'"
+                       [class.bi-check-circle-fill]="getPasswordStrength() === 'Strong'"
+                       [class.text-danger]="getPasswordStrength() === 'Weak'"
+                       [class.text-warning]="getPasswordStrength() === 'Fair'"
+                       [class.text-info]="getPasswordStrength() === 'Good'"
+                       [class.text-success]="getPasswordStrength() === 'Strong'"></i>
+                    <span class="ms-1 fw-medium">{{ getPasswordStrength() }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-text">
+                <i class="bi bi-info-circle me-1"></i>Password must be at least 8 characters with uppercase, lowercase, number, and special character
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">
+                <i class="bi bi-lock-fill me-2"></i>Confirm Password
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-shield-check"></i>
+                </span>
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  class="form-control"
+                  id="confirmPassword"
+                  formControlName="confirmPassword"
+                  [class.is-invalid]="confirmPassword?.invalid && confirmPassword?.dirty"
+                  [class.is-valid]="confirmPassword?.valid && confirmPassword?.dirty"
+                  placeholder="Confirm your password"
+                  autocomplete="new-password"
+                >
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary password-toggle-btn"
+                  (click)="toggleConfirmPasswordVisibility()"
+                  [class.active]="showConfirmPassword"
+                >
+                  <i class="bi password-icon" 
+                     [class.bi-eye]="!showConfirmPassword" 
+                     [class.bi-eye-slash]="showConfirmPassword"
+                     [class.text-primary]="showConfirmPassword"></i>
+                </button>
+                <span class="input-group-text" *ngIf="confirmPassword?.valid && confirmPassword?.dirty">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+              <div class="invalid-feedback animated-fade-in" *ngIf="confirmPassword?.invalid && confirmPassword?.dirty">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ getFieldError('confirmPassword') }}
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              <i class="bi bi-exclamation-circle me-2"></i>
+              {{ errorMessage }}
+            </div>
+
+            <!-- Success Message -->
+            <div class="alert alert-success" *ngIf="successMessage">
+              <i class="bi bi-check-circle me-2"></i>
+              {{ successMessage }}
+            </div>
+
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="registerForm.invalid || isLoading"
+              >
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                {{ isLoading ? 'Registering...' : 'Register' }}
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <p class="mb-0">Already have an account?
+            <a routerLink="/login" class="text-primary fw-medium">Login here</a>
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

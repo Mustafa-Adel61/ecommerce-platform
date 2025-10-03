@@ -1,0 +1,116 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ isEditMode ? 'Edit Category' : 'Create Category' }}</h2>
+        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+          <i class="bi bi-arrow-left me-2"></i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <!-- Loading Spinner -->
+          <div class="text-center" *ngIf="isLoading">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="alert alert-danger" *ngIf="errorMessage && !apiError">
+            <i class="bi bi-exclamation-circle me-2"></i>
+            {{ errorMessage }}
+          </div>
+
+          <!-- API Error Message -->
+          <div class="alert alert-danger" *ngIf="apiError">
+            <i class="bi bi-exclamation-circle me-2"></i>
+            {{ apiError.message }}
+          </div>
+
+          <!-- Success Message -->
+          <div class="alert alert-success" *ngIf="successMessage">
+            <i class="bi bi-check-circle me-2"></i>
+            {{ successMessage }}
+          </div>
+
+          <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+            <div class="mb-3">
+              <label for="name" class="form-label">
+                <i class="bi bi-tag-fill me-2"></i>Category Name
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-tags"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  formControlName="name"
+                  [class.is-invalid]="name?.invalid && name?.touched"
+                  [class.is-valid]="name?.valid && name?.touched"
+                  placeholder="Enter category name"
+                >
+                <span class="input-group-text" *ngIf="name?.valid && name?.touched">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+              <div class="invalid-feedback animated-fade-in" *ngIf="name?.invalid && name?.touched">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ getFieldError('name') }}
+              </div>
+              <div class="form-text">
+                <i class="bi bi-info-circle me-1"></i>Category name must be 2-100 characters
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">
+                <i class="bi bi-file-text-fill me-2"></i>Description
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-chat-text"></i>
+                </span>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  formControlName="description"
+                  [class.is-invalid]="description?.invalid && description?.touched"
+                  [class.is-valid]="description?.valid && description?.touched"
+                  rows="4"
+                  placeholder="Enter category description (optional)"
+                ></textarea>
+                <span class="input-group-text" *ngIf="description?.valid && description?.touched">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+              <div class="form-text">
+                <i class="bi bi-info-circle me-1"></i>Optional description for the category (max 500 characters)
+              </div>
+              <div class="invalid-feedback animated-fade-in" *ngIf="description?.invalid && description?.touched">
+                <i class="bi bi-exclamation-triangle me-1"></i>{{ getFieldError('description') }}
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="categoryForm.invalid || isSubmitting"
+              >
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Category' : 'Create Category') }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

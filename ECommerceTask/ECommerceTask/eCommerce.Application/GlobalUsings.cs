@@ -1,0 +1,16 @@
+﻿global using eCommerce.Application.Common;
+global using eCommerce.Application.DTOs.Product;
+global using eCommerce.Application.Interfaces.IService;
+global using eCommerce.Domain.Models;
+global using FitPro.Application.Common;
+global using eCommerce.Application.DTOs.Category;
+global using eCommerce.Application.Interfaces.IRepository;
+global using Microsoft.AspNetCore.Http;
+global using eCommerce.Application.DTOs.User;
+global using eCommerce.Domain.Models.Identity;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
